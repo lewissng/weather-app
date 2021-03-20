@@ -19,12 +19,26 @@ async function getWeatherData(location) {
     if (response.status === 400) {
         throwErrorMsg();
     } else {
+        error.style.display = 'none';
         const weatherData = await response.json();
         const newData = processData(weatherData);
         displayData(newData);
         reset();
     }
 }
+
+function throwErrorMsg() {
+    error.style.display = 'block';
+    if (error.classList.contains('fade-in')) {
+      error.style.display = 'none';
+      error.classList.remove('fade-in2');
+      error.offsetWidth;
+      error.classList.add('fade-in');
+      error.style.display = 'block';
+    } else {
+      error.classList.add('fade-in');
+    }
+  }
 
 function processData(weatherData) {
     // grab all the data i want to display on the page
